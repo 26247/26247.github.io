@@ -5,6 +5,14 @@ var x = 0;
 var y = 0;
 var dx = 0;
 var dy = 0;
+var boxSize = 20;
+var limitingSpeed = 0.9;
+
+var cameraX = 0;
+var cameraY = 0;
+var cameraDeltaX = 0;
+var cameraDeltaY = 0;
+var cameraSpeed = 0.1;
 
 var pressedLeft = 0;
 var pressedRight = 0;
@@ -18,11 +26,11 @@ function keyDownEvent(event){
     if(event.key == 'd'){
         pressedRight = 1;
     }
-    if(event.key == 'w'){
-        pressedUp = 1;
-    }
     if(event.key == 's'){
         pressedDown = 1;
+    }
+    if(event.key == 'w'){
+        pressedUp = 1;
     }
 }
 
@@ -46,19 +54,44 @@ function keyUpEvent(event){
 document.addEventListener("keyup", keyUpEvent, false);
 
 function draw(){
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#00FF00";
-    ctx.fillRect(20 + x, 20 + y, 20, 20);
+    ctx.fillStyle = "rgb(0, 255, 0)";
+    ctx.fillRect(
+        canvas.width / 2 - boxSize / 2 + x - cameraX,
+        canvas.height / 2 - boxSize / 2 + y - cameraY,
+        boxSize, boxSize);
+    ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
+    for(var tempX = 0; tempX < 1000; tempX += 200){
+        for(var tempY = 0; tempY < 1000; tempY += 200){
+            ctx.fillRect(tempX - cameraX, tempY - cameraY, 100, 100);
+        }
+    }
 
     dx += pressedRight - pressedLeft;
     dy += pressedDown - pressedUp;
 
-    dx *= 0.9;
-    dy *= 0.9;
+    dx *= limitingSpeed;
+    dy *= limitingSpeed;
 
     x += dx;
     y += dy;
+
+    if(x - cameraX > 0){
+        cameraDeltaX += (dx - cameraDeltaX) * cameraSpeed;
+    }
+    if(x - cameraX < 0){
+        cameraDeltaX -= (cameraDeltaX - dx) * cameraSpeed;
+    }
+    if(y - cameraY > 0){
+        cameraDeltaY += (dy - cameraDeltaY) * cameraSpeed;
+    }
+    if(y - cameraY < 0){
+        cameraDeltaY -= (cameraDeltaY - dy) * cameraSpeed;
+    }
+
+    cameraX += cameraDeltaX;
+    cameraY += cameraDeltaY;
 }
 
 setInterval(draw, 20);
