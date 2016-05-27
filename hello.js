@@ -1,6 +1,8 @@
 var canvas = document.getElementById("helloCanvas");
 var ctx = canvas.getContext("2d");
 
+canvas.focus();
+
 var x = 0;
 var y = 0;
 var dx = 0;
@@ -34,7 +36,7 @@ function keyDownEvent(event){
     }
 }
 
-document.addEventListener("keydown", keyDownEvent, false);
+canvas.addEventListener("keydown", keyDownEvent, false);
 
 function keyUpEvent(event){
     if(event.key == 'a'){
@@ -51,20 +53,40 @@ function keyUpEvent(event){
     }
 }
 
-document.addEventListener("keyup", keyUpEvent, false);
+canvas.addEventListener("keyup", keyUpEvent, false);
+
+function unFocused(event){
+    pressedLeft = 0;
+    pressedRight = 0;
+    pressedDown = 0;
+    pressedUp = 0;
+}
+
+canvas.addEventListener("blur", unFocused, false);
 
 function draw(){
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "rgb(0, 255, 0)";
     ctx.fillRect(
-        canvas.width / 2 - boxSize / 2 + x - cameraX,
-        canvas.height / 2 - boxSize / 2 + y - cameraY,
+        x - (cameraX - canvas.width / 2) - boxSize / 2,
+        y - (cameraY - canvas.height / 2) - boxSize / 2,
         boxSize, boxSize);
-    ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
-    for(var tempX = 0; tempX < 1000; tempX += 200){
-        for(var tempY = 0; tempY < 1000; tempY += 200){
-            ctx.fillRect(tempX - cameraX, tempY - cameraY, 100, 100);
+    for(var tempX = 0; tempX < 10000; tempX += 200){
+        for(var tempY = 0; tempY < 10000; tempY += 200){
+            if(tempX - x < canvas.width && x - tempX < canvas.width &&
+                tempY - y < canvas.height && y - tempY < canvas.height){
+                ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; 
+                ctx.fillRect(
+                    tempX - (cameraX - canvas.width / 2),
+                    tempY - (cameraY - canvas.height / 2),
+                    100, 100);
+                ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; 
+                ctx.font = "36px serif";
+                ctx.fillText(tempX / 200 + " " + tempY / 200,
+                    tempX - (cameraX - canvas.width / 2),
+                    tempY - (cameraY - canvas.height / 2));
+            }
         }
     }
 
