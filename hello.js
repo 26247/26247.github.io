@@ -1,3 +1,4 @@
+"use strict";
 var canvas = document.getElementById("helloCanvas");
 var ctx = canvas.getContext("2d");
 
@@ -9,6 +10,7 @@ var dx = 0;
 var dy = 0;
 var boxSize = 20;
 var limitingSpeed = 0.9;
+
 var angle = 0;
 var deltaAngle = 0;
 var limitingAngle = 0.9;
@@ -86,7 +88,9 @@ canvas.addEventListener("blur", unFocused, false);
 function draw(){
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     ctx.save();
+
     ctx.fillStyle = "rgb(0, 255, 0)";
     ctx.fillRect(
         Math.cos(angle * Math.PI / 180) * (x - cameraX) -
@@ -101,31 +105,38 @@ function draw(){
         Math.cos(angle * Math.PI / 180) * (x - cameraX) -
         Math.sin(angle * Math.PI / 180) * (y - cameraY) +
         canvas.width / 2 - boxSize /2,
-        Math.cos(angle * Math.PI / 180) * (y -cameraY) +
+        Math.cos(angle * Math.PI / 180) * (y - cameraY) +
         Math.sin(angle * Math.PI / 180) * (x - cameraX) +
         canvas.height / 2 - boxSize / 2);
+
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate(angle * Math.PI / 180);
     ctx.translate(-canvas.width / 2, -canvas.height / 2);
-    var boxTempX = (x / 200).toFixed() * 200 - 400;
-    var boxTempY = (y / 200).toFixed() * 200 - 400;
-    for(var tempX = boxTempX; tempX < boxTempX + 1000; tempX += 200){
-        for(var tempY = boxTempY; tempY < boxTempY + 1000; tempY += 200){
-            ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; 
+
+    var originTempX = Math.round(x / 200) * 200 + 400;
+    var originTempY = Math.round(y / 200) * 200 + 400;
+    var tempX = originTempX - 1000;
+    while(tempX <= originTempX){
+        var tempY = originTempY - 1000;
+        while(tempY <= originTempY){
+            ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
             ctx.fillRect(
                 tempX - (cameraX - canvas.width / 2),
                 tempY - (cameraY - canvas.height / 2),
                 100, 100);
-            ctx.fillStyle = "rgba(255, 0, 0, 0.5)"; 
+            ctx.fillStyle = "rgba(255, 0, 0, 0.5)"
             ctx.font = "36px serif";
             ctx.fillText(tempX / 200 + " " + tempY / 200,
                 tempX - (cameraX - canvas.width / 2),
                 tempY - (cameraY - canvas.height / 2));
+            tempY += 200;
         }
+        tempX += 200;
     }
+
     ctx.restore();
 
-    dx += Math.cos(angle * Math.PI / 180) * (pressedRight - pressedLeft) + 
+    dx += Math.cos(angle * Math.PI / 180) * (pressedRight - pressedLeft) +
         Math.sin(angle * Math.PI / 180) * (pressedDown - pressedUp);
     dy += Math.cos(angle * Math.PI / 180) * (pressedDown - pressedUp) -
         Math.sin(angle * Math.PI / 180) * (pressedRight - pressedLeft);
