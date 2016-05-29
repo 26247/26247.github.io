@@ -1,1 +1,1 @@
-hello world
+Let me make a simple javascript game.
