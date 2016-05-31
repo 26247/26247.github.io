@@ -40,17 +40,22 @@ player.prototype.draw = function()
 player.prototype.move = function()
 {
     this.dx += 
-        Math.cos(this.angle * Math.PI / 180) * (pressedRight - pressedLeft) +
-        Math.sin(this.angle * Math.PI / 180) * (pressedDown - pressedUp);
+        Math.cos(this.angle * Math.PI / 180) *
+	(pressedKey['d'.charCodeAt()] - pressedKey['a'.charCodeAt()]) +
+        Math.sin(this.angle * Math.PI / 180) *
+	(pressedKey['s'.charCodeAt()] - pressedKey['w'.charCodeAt()]);
     this.dy +=
-        Math.cos(this.angle * Math.PI / 180) * (pressedDown - pressedUp) -
-        Math.sin(this.angle * Math.PI / 180) * (pressedRight - pressedLeft);
+        Math.cos(this.angle * Math.PI / 180) *
+	(pressedKey['s'.charCodeAt()] - pressedKey['w'.charCodeAt()]) -
+        Math.sin(this.angle * Math.PI / 180) *
+	(pressedKey['d'.charCodeAt()] - pressedKey['a'.charCodeAt()]);
     this.dx *= this.limitingSpeed;
     this.dy *= this.limitingSpeed;
     this.x += this.dx;
     this.y += this.dy;
 
-    this.deltaAngle += (pressedAnglePlus - pressedAngleMinus) / 4;
+    this.deltaAngle += (pressedKey['q'.charCodeAt()] -
+    pressedKey['e'.charCodeAt()]) / 4;
     this.deltaAngle *= this.limitingAngle;
     this.angle += this.deltaAngle;
 };
