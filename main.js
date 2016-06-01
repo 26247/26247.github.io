@@ -14,14 +14,14 @@ var pressedKey = new Array(128).fill(0);
 
 function keyDownEvent(event)
 {
-    pressedKey[event.key.charCodeAt()] = 1;
+    pressedKey[event.key.charCodeAt(0)] = 1;
 }
 
 canvas.addEventListener("keydown", keyDownEvent, false);
 
 function keyUpEvent(event)
 {
-    pressedKey[event.key.charCodeAt()] = 0;
+    pressedKey[event.key.charCodeAt(0)] = 0;
 }
 
 canvas.addEventListener("keyup", keyUpEvent, false);

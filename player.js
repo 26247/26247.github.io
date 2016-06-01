@@ -41,21 +41,21 @@ player.prototype.move = function()
 {
     this.dx += 
         Math.cos(this.angle * Math.PI / 180) *
-	(pressedKey['d'.charCodeAt()] - pressedKey['a'.charCodeAt()]) +
+	(pressedKey['d'.charCodeAt(0)] - pressedKey['a'.charCodeAt(0)]) +
         Math.sin(this.angle * Math.PI / 180) *
-	(pressedKey['s'.charCodeAt()] - pressedKey['w'.charCodeAt()]);
+	(pressedKey['s'.charCodeAt(0)] - pressedKey['w'.charCodeAt(0)]);
     this.dy +=
         Math.cos(this.angle * Math.PI / 180) *
-	(pressedKey['s'.charCodeAt()] - pressedKey['w'.charCodeAt()]) -
+	(pressedKey['s'.charCodeAt(0)] - pressedKey['w'.charCodeAt(0)]) -
         Math.sin(this.angle * Math.PI / 180) *
-	(pressedKey['d'.charCodeAt()] - pressedKey['a'.charCodeAt()]);
+	(pressedKey['d'.charCodeAt(0)] - pressedKey['a'.charCodeAt(0)]);
     this.dx *= this.limitingSpeed;
     this.dy *= this.limitingSpeed;
     this.x += this.dx;
     this.y += this.dy;
 
-    this.deltaAngle += (pressedKey['q'.charCodeAt()] -
-    pressedKey['e'.charCodeAt()]) / 4;
+    this.deltaAngle += (pressedKey['q'.charCodeAt(0)] -
+    pressedKey['e'.charCodeAt(0)]) / 4;
     this.deltaAngle *= this.limitingAngle;
     this.angle += this.deltaAngle;
 };

@@ -25,7 +25,7 @@ background.prototype.draw = function()
                 tempX - (this.usingCamera.x - canvas.width / 2),
                 tempY - (this.usingCamera.y - canvas.height / 2),
                 100, 100);
-            ctx.fillStyle = "rgba(255, 0, 0, 0.5";
+            ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
             ctx.font = "36px serif";
             ctx.fillText(tempX / 200 + "," + tempY / 200,
                 tempX - (this.usingCamera.x - canvas.width / 2),
