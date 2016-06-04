@@ -13,6 +13,8 @@ var player = function(myCamera)
     this.limitingAngle = 0.9;
 
     this.usingCamera = myCamera;
+
+    this.bullets = [];
 };
 
 player.prototype.draw = function()
@@ -58,4 +60,21 @@ player.prototype.move = function()
     pressedKey['e'.charCodeAt(0)]) / 4;
     this.deltaAngle *= this.limitingAngle;
     this.angle += this.deltaAngle;
+
+    if(pressedKey['j'.charCodeAt(0)])
+    {
+        this.shot();
+    }
+
+    this.bullets.forEach(function(item, index, array)
+    {
+        item.draw();
+
+        item.move();
+    });
+};
+
+player.prototype.shot = function()
+{
+    this.bullets.push(new bullet(this.x, this.y, this.angle, this.usingCamera));
 };
