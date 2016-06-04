@@ -1,8 +1,11 @@
 "use strict";
-var bullet = function(xOrigin, yOrigin, angleOrigin, myCamera)
+var bullet = function(xOrigin, yOrigin, left_right, top_bottom,
+    angleOrigin, myCamera)
 {
     this.x = xOrigin;
     this.y = yOrigin;
+    this.left_right = left_right;
+    this.top_bottom = top_bottom;
     this.boxSize = 5;
 
     this.angle = angleOrigin;
@@ -33,6 +36,10 @@ bullet.prototype.draw = function()
 
 bullet.prototype.move = function()
 {
-    this.x -= Math.sin(this.angle * Math.PI / 180) * 10;
-    this.y -= Math.cos(this.angle * Math.PI / 180) * 10;
+    this.x -= 
+        this.left_right * Math.cos(this.angle * Math.PI / 180) * 20 +
+        this.top_bottom * Math.sin(this.angle * Math.PI / 180) * 20;
+    this.y -= 
+        this.top_bottom * Math.cos(this.angle * Math.PI / 180) * 20 -
+        this.left_right * Math.sin(this.angle * Math.PI / 180) * 20;
 };
