@@ -12,12 +12,14 @@ background.prototype.draw = function()
     ctx.rotate(this.usingCamera.angle * Math.PI / 180);
     ctx.translate(-canvas.width / 2, -canvas.height / 2);
 
-    var originTempX = Math.round(this.usingCamera.x / 200) * 200 + 400;
-    var originTempY = Math.round(this.usingCamera.y / 200) * 200 + 400;
-    var tempX = originTempX - 1000;
+    var originTempX = Math.round(this.usingCamera.x / 200) * 200 +
+        Math.round(windowSize / 200) * 200;
+    var originTempY = Math.round(this.usingCamera.y / 200) * 200 +
+        Math.round(windowSize / 200) * 200;
+    var tempX = originTempX - Math.round(windowSize / 200) * 400;
     while(tempX <= originTempX)
     {
-        var tempY = originTempY - 1000;
+        var tempY = originTempY - Math.round(windowSize / 200) * 400;
         while(tempY <= originTempY)
         {
             ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
