@@ -36,10 +36,10 @@ bullet.prototype.draw = function()
 
 bullet.prototype.move = function()
 {
-    this.x -= 
+    this.x -=
         this.left_right * Math.cos(this.angle * Math.PI / 180) * 10 +
         this.top_bottom * Math.sin(this.angle * Math.PI / 180) * 10;
-    this.y -= 
+    this.y -=
         this.top_bottom * Math.cos(this.angle * Math.PI / 180) * 10 -
         this.left_right * Math.sin(this.angle * Math.PI / 180) * 10;
 };

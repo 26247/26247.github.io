@@ -43,8 +43,8 @@ player.prototype.draw = function()
         this.realPosition("y") + canvas.height / 2 - this.boxSize / 2,
         this.boxSize, this.boxSize);
 
-    ctx.font = "18px serif";
-    ctx.fillText(this.angle, 10, 20);
+    /*ctx.font = "18px serif";
+    ctx.fillText(this.angle, 10, 20);*/
 };
 
 player.prototype.move = function()
@@ -85,7 +85,7 @@ player.prototype.move = function()
     this.deltaAngle *= this.limitingAngle;
     this.angle += this.deltaAngle;
 
-    var tempIndex = -1;
+    //var tempIndex = -1;
     var tempX = this.x; 
     var tempY = this.y; 
     this.bullets.forEach(function(item, index, array)
@@ -94,7 +94,7 @@ player.prototype.move = function()
 
         item.move();
 
-        tempIndex = index;
+        //tempIndex = index;
 
         if(item.x > tempX + windowSize || item.x < tempX - windowSize ||
             item.y > tempY + windowSize || item.y < tempY - windowSize)
@@ -103,13 +103,13 @@ player.prototype.move = function()
         }
     });
 
-    ctx.fillStyle = "rgb(127, 127, 0)";
+    /*ctx.fillStyle = "rgb(127, 127, 0)";
     ctx.font = "18px serif";
-    ctx.fillText(tempIndex + 1, 10, 40);
+    ctx.fillText(tempIndex + 1, 10, 40);*/
 };
 
 player.prototype.shot = function(left_right, top_bottom)
 {
     this.bullets.push(new bullet(this.x, this.y, left_right, top_bottom,
-    this.angle, this.usingCamera));
+        this.angle, this.usingCamera));
 };
