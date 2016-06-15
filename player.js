@@ -33,7 +33,7 @@ player.prototype.realPosition = function(axis)
         Math.cos(this.angle * Math.PI / 180) *
         (this.y - this.usingCamera.y)
     }
-}
+};
 
 player.prototype.draw = function()
 {

@@ -79,6 +79,8 @@ function mouseEnterEvent(event)
 
 canvas.addEventListener("mouseenter", mouseEnterEvent, false);
 
+var enemy0 = new enemy(camera0);
+
 function draw()
 {
     ctx.fillStyle = "rgb(0, 0, 0)";
@@ -89,6 +91,8 @@ function draw()
     player0.draw();
 
     player0.move();
+
+    enemy0.draw();
 
     camera0.track(player0);
 }

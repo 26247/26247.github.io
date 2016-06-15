@@ -22,13 +22,13 @@ background.prototype.draw = function()
         var tempY = originTempY - Math.round(windowSize / 200) * 400;
         while(tempY <= originTempY)
         {
-            ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
+            ctx.fillStyle = "rgb(0, 0, 255)";
             ctx.fillRect(
                 tempX - (this.usingCamera.x - canvas.width / 2),
                 tempY - (this.usingCamera.y - canvas.height / 2),
                 190, 190);
-            ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
-            /*ctx.font = "36px serif";
+            /*ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+            ctx.font = "36px serif";
             ctx.fillText(tempX / 200 + "," + -tempY / 200,
                 tempX - (this.usingCamera.x - canvas.width / 2),
                 tempY - (this.usingCamera.y - canvas.height / 2));*/
