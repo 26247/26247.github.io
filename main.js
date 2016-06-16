@@ -13,6 +13,8 @@ var player0 = new player(camera0);
 
 var background0 = new background(camera0);
 
+var bullets = [];
+
 var pressedKey = new Array(128).fill(0);
 
 var clickedMouse = 0;
@@ -79,7 +81,7 @@ function mouseEnterEvent(event)
 
 canvas.addEventListener("mouseenter", mouseEnterEvent, false);
 
-var enemy0 = new enemy(camera0);
+var enemies = [];
 
 function draw()
 {
@@ -92,9 +94,46 @@ function draw()
 
     player0.move();
 
-    enemy0.draw();
+    enemies.forEach(function(enemyItem, enemyIndex, enemyArray)
+    {
+        enemyItem.move();
+
+        enemyItem.draw();
+
+        bullets.forEach(function(bulletItem, bulletIndex, bulletArray)
+        {
+            if(enemyItem.collision(bulletItem) == 1){
+                enemyArray.splice(enemyIndex, 1);
+            }
+        });
+    });
 
     camera0.track(player0);
 }
 
 setInterval(draw, 20);
+
+function createEnemy()
+{
+    if(Math.random() < 0.5){
+        if(Math.random() < 0.5){
+            enemies.push(new enemy(camera0, player0, player0.x - windowSize,
+                player0.y + (Math.random() - 0.5) * windowSize));
+        }else{
+            enemies.push(new enemy(camera0, player0, player0.x + windowSize,
+                player0.y + (Math.random() - 0.5) * windowSize));
+        }
+    }else{
+        if(Math.random() < 0.5){
+            enemies.push(new enemy(camera0, player0,
+                player0.x - (Math.random() - 0.5) * windowSize,
+                player0.y - windowSize));
+        }else{
+            enemies.push(new enemy(camera0, player0,
+                player0.x - (Math.random() - 0.5) * windowSize,
+                player0.y + windowSize));
+        }
+    }
+}
+
+setInterval(createEnemy, 1000);

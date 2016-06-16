@@ -1,13 +1,12 @@
 "use strict";
-var enemy = function(myCamera)
+var enemy = function(myCamera, myPlayer, firstX, firstY)
 {
-    this.x = 0;
-    this.y = 0;
+    this.x = firstX;
+    this.y = firstY;
     this.boxSize = 20;
 
     this.usingCamera = myCamera;
-
-    this.bullets = [];
+    this.trackingPlayer = myPlayer;
 };
 
 enemy.prototype.draw = function()
@@ -25,4 +24,37 @@ enemy.prototype.draw = function()
         this.boxSize, this.boxSize);
 
     ctx.restore();
+};
+
+enemy.prototype.move = function()
+{
+    if(this.x - this.trackingPlayer.x > 0)
+    {
+        this.x -= (this.x - this.trackingPlayer.x) / 200;
+    }
+    if(this.x - this.trackingPlayer.x < 0)
+    {
+        this.x += -(this.x - this.trackingPlayer.x) / 200;
+    }
+    if(this.y - this.trackingPlayer.y > 0)
+    {
+        this.y -= (this.y - this.trackingPlayer.y) / 200;
+    }
+    if(this.y - this.trackingPlayer.y < 0)
+    {
+        this.y += -(this.y - this.trackingPlayer.y) / 200;
+    }
+};
+
+enemy.prototype.collision = function(attackingBullet)
+{
+    if(this.x - this.boxSize / 2 < attackingBullet.x &&
+        this.x + this.boxSize / 2 > attackingBullet.x &&
+        this.y - this.boxSize / 2 < attackingBullet.y &&
+        this.y + this.boxSize / 2 > attackingBullet.y)
+    {
+        return 1;
+    }else{
+        return 0;
+    }
 };

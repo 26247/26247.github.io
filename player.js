@@ -14,7 +14,7 @@ var player = function(myCamera)
 
     this.usingCamera = myCamera;
 
-    this.bullets = [];
+    this.limitingShot = 0;
 };
 
 player.prototype.realPosition = function(axis)
@@ -49,7 +49,7 @@ player.prototype.draw = function()
 
 player.prototype.move = function()
 {
-    if(clickedMouse == 1)
+    if(this.limitingShot <= 0 && clickedMouse == 1)
     {
         this.shot(-Math.sign(mouseX - canvas.width / 2 -
             this.realPosition("x")) *
@@ -63,7 +63,9 @@ player.prototype.move = function()
             this.realPosition("y")) /
             (mouseX - canvas.width / 2 -
             this.realPosition("x")))));
+        this.limitingShot = 10;
     }
+    this.limitingShot -= 1;
 
     this.dx += 
         Math.cos(this.angle * Math.PI / 180) *
@@ -88,7 +90,7 @@ player.prototype.move = function()
     //var tempIndex = -1;
     var tempX = this.x; 
     var tempY = this.y; 
-    this.bullets.forEach(function(item, index, array)
+    bullets.forEach(function(item, index, array)
     {
         item.draw();
 
@@ -110,6 +112,6 @@ player.prototype.move = function()
 
 player.prototype.shot = function(left_right, top_bottom)
 {
-    this.bullets.push(new bullet(this.x, this.y, left_right, top_bottom,
+    bullets.push(new bullet(this.x, this.y, left_right, top_bottom,
         this.angle, this.usingCamera));
 };
