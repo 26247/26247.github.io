@@ -58,3 +58,15 @@ enemy.prototype.collision = function(attackingBullet)
         return 0;
     }
 };
+
+enemy.prototype.playerColltion = function(attackingPlayer)
+{
+    if(this.x - this.boxSize < attackingPlayer.x &&
+        this.x + this.boxSize > attackingPlayer.x &&
+        this.y - this.boxSize < attackingPlayer.y &&
+        this.y + this.boxSize > attackingPlayer.y)
+    {
+        alert("You are dead");
+        document.location.reload(true);
+    }
+};

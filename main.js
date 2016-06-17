@@ -102,10 +102,13 @@ function draw()
 
         bullets.forEach(function(bulletItem, bulletIndex, bulletArray)
         {
-            if(enemyItem.collision(bulletItem) == 1){
+            if(enemyItem.collision(bulletItem) == 1)
+            {
                 enemyArray.splice(enemyIndex, 1);
             }
         });
+
+        enemyItem.playerColltion(player0);
     });
 
     camera0.track(player0);
@@ -115,20 +118,29 @@ setInterval(draw, 20);
 
 function createEnemy()
 {
-    if(Math.random() < 0.5){
-        if(Math.random() < 0.5){
+    if(Math.random() < 0.5)
+    {
+        if(Math.random() < 0.5)
+        {
             enemies.push(new enemy(camera0, player0, player0.x - windowSize,
                 player0.y + (Math.random() - 0.5) * windowSize));
-        }else{
+        }
+        else
+        {
             enemies.push(new enemy(camera0, player0, player0.x + windowSize,
                 player0.y + (Math.random() - 0.5) * windowSize));
         }
-    }else{
-        if(Math.random() < 0.5){
+    }
+    else
+    {
+        if(Math.random() < 0.5)
+        {
             enemies.push(new enemy(camera0, player0,
                 player0.x - (Math.random() - 0.5) * windowSize,
                 player0.y - windowSize));
-        }else{
+        }
+        else
+        {
             enemies.push(new enemy(camera0, player0,
                 player0.x - (Math.random() - 0.5) * windowSize,
                 player0.y + windowSize));
