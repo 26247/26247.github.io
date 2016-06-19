@@ -45,7 +45,7 @@ enemyBullet.prototype.collition = function(attackingPlayer)
         this.y - this.boxSize < attackingPlayer.y &&
         this.y + this.boxSize > attackingPlayer.y)
     {
-        alert("You are dead");
+        alert("You Are Dead");
         document.location.reload(true);
     }
 };

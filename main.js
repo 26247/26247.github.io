@@ -19,6 +19,8 @@ var enemies = [];
 
 var enemyBullets = [];
 
+var enemyCount = 0;
+
 var pressedKey = new Array(128).fill(0);
 
 var clickedMouse = 0;
@@ -107,6 +109,8 @@ function draw()
             if(enemyItem.collision(bulletItem) == 1)
             {
                 enemyArray.splice(enemyIndex, 1);
+                enemyCount += 1;
+                document.title = enemyCount;
             }
         });
 
