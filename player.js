@@ -63,7 +63,7 @@ player.prototype.move = function()
             this.realPosition("y")) /
             (mouseX - canvas.width / 2 -
             this.realPosition("x")))));
-        this.limitingShot = 10;
+        this.limitingShot = 3;
     }
     this.limitingShot -= 1;
 

@@ -7,6 +7,8 @@ var enemy = function(myCamera, myPlayer, firstX, firstY)
 
     this.usingCamera = myCamera;
     this.trackingPlayer = myPlayer;
+
+    this.limitingShot = 0;
 };
 
 enemy.prototype.draw = function()
@@ -54,12 +56,14 @@ enemy.prototype.collision = function(attackingBullet)
         this.y + this.boxSize / 2 > attackingBullet.y)
     {
         return 1;
-    }else{
+    }
+    else
+    {
         return 0;
     }
 };
 
-enemy.prototype.playerColltion = function(attackingPlayer)
+enemy.prototype.playerCollition = function(attackingPlayer)
 {
     if(this.x - this.boxSize < attackingPlayer.x &&
         this.x + this.boxSize > attackingPlayer.x &&
@@ -69,4 +73,15 @@ enemy.prototype.playerColltion = function(attackingPlayer)
         alert("You are dead");
         document.location.reload(true);
     }
+};
+
+enemy.prototype.shot = function()
+{
+    if(this.limitingShot <= 0){
+        enemyBullets.push(new enemyBullet(this.x, this.y,
+            Math.random() / 2 - 0.25, Math.random() /2 - 0.25,
+            this.usingCamera));
+        this.limitingShot = 8;
+    }
+    this.limitingShot -= 1;
 };

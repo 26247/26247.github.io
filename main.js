@@ -15,6 +15,10 @@ var background0 = new background(camera0);
 
 var bullets = [];
 
+var enemies = [];
+
+var enemyBullets = [];
+
 var pressedKey = new Array(128).fill(0);
 
 var clickedMouse = 0;
@@ -81,8 +85,6 @@ function mouseEnterEvent(event)
 
 canvas.addEventListener("mouseenter", mouseEnterEvent, false);
 
-var enemies = [];
-
 function draw()
 {
     ctx.fillStyle = "rgb(0, 0, 0)";
@@ -108,7 +110,26 @@ function draw()
             }
         });
 
-        enemyItem.playerColltion(player0);
+        enemyItem.playerCollition(player0);
+
+        enemyItem.shot();
+    });
+
+    enemyBullets.forEach(function(item, index, array)
+    {
+        item.move();
+
+        item.draw();
+
+        item.collition(player0);
+
+        if(item.x > player0.x + windowSize ||
+            item.x < player0.x - windowSize ||
+            item.y > player.y + windowSize ||
+            item.y < player0.y - windowSize)
+        {
+            array.splice(index, 1);
+        }
     });
 
     camera0.track(player0);
