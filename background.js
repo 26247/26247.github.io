@@ -22,7 +22,13 @@ background.prototype.draw = function()
         var tempY = originTempY - Math.round(windowSize / 200) * 400;
         while(tempY <= originTempY)
         {
-            ctx.fillStyle = "rgb(0, 0, 127)";
+            if((tempX / 200 + tempY / 200) % 2 == 0)
+            {
+                ctx.fillStyle = "rgb(0, 0, 90)";
+            }else
+            {
+                ctx.fillStyle = "rgb(0, 0, 60)";
+            }
             ctx.fillRect(
                 tempX - (this.usingCamera.x - canvas.width / 2),
                 tempY - (this.usingCamera.y - canvas.height / 2),
